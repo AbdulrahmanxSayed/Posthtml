@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Approval</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 40px; }
+        button { padding: 14px 32px; font-size: 18px; margin: 12px; border-radius: 8px; border: none; cursor: pointer; }
+        .approve { background-color: #4CAF50; color: white; }
+        .reject { background-color: #f44336; color: white; }
+        #msg { margin-top: 30px; font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Approve or Reject Ticket</h2>
+    <button class="approve" onclick="sendAction('Approved')">Accept</button>
+    <button class="reject" onclick="sendAction('Rejected')">Reject</button>
+    <div id="msg"></div>
+
+    <script>
+        // Get id and URL from query string
+        const params = new URLSearchParams(window.location.search);
+        const ticketId = params.get('id');
+        const flowUrl = decodeURIComponent(params.get('flow'));
+
+        function sendAction(status) {
+            document.getElementById("msg").innerHTML = "Processing...";
+
+            fetch(`${flowUrl}?id=${ticketId}&status=${status}`, {
+                method: "POST"
+            })
+            .then(r => {
+                if(r.ok) {
+                    document.getElementById("msg").innerHTML = "Done! Your response has been recorded.";
+                } else {
+                    document.getElementById("msg").innerHTML = "Error! Please contact support.";
+                }
+            })
+            .catch(err => {
+                document.getElementById("msg").innerHTML = "Error sending response.";
+            });
+        }
+    </script>
+</body>
+</html>
