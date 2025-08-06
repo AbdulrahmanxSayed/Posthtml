@@ -26,7 +26,7 @@
         function sendAction() {
             document.getElementById("msg").innerHTML = "Processing...";
 
-            fetch(`${flowUrl}?id=${ticketId}`, {
+            fetch(`${flowUrl}&id=${ticketId}`, {
                 method: "POST"
             })
             .then(r => {
@@ -43,4 +43,5 @@
     </script>
 </body>
 </html>
+
 
