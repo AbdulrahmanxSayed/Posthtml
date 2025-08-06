@@ -23,10 +23,10 @@
         const ticketId = params.get('id');
         const flowUrl = decodeURIComponent(params.get('flow'));
 
-        function sendAction(status) {
+        function sendAction() {
             document.getElementById("msg").innerHTML = "Processing...";
 
-            fetch(`${flowUrl}?id=${ticketId}&status=${status}`, {
+            fetch(`${flowUrl}?id=${ticketId}`, {
                 method: "POST"
             })
             .then(r => {
@@ -43,3 +43,4 @@
     </script>
 </body>
 </html>
+
